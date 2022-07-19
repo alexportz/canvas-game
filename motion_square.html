@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motion Square</title>
+    <style type="text/css">
+        body {
+            background:#F33;
+            margin:0px;
+            border:0px;
+            padding:0px;
+        }
+        #main {
+            position:absolute;
+            margin:0 auto;
+            background:#333; 
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function(){
+
+           var canvas = document.getElementById('main');
+           var ctx = canvas.getContext('2d'); 
+            
+           //CLASSE PLAYER
+            class Player { 
+                x = 400;
+                y = 150;
+                w = 30;
+                h = 30; 
+
+                draw() { 
+                    ctx.fillRect( this.x, this.y, this.w, this.h);
+                }
+            }
+
+            function movePlayer(){ 
+                ctx.clearRect(0,0,800,500);
+                player.draw(); 
+            }
+
+ 
+            //FUNÇÃO AO CLICAR
+            window.addEventListener('click', function(e){
+                console.log('clicou');
+                player.x = e.clientX - player.w/2;
+                player.y = e.clientY - player.h/2; 
+                movePlayer();
+            });
+
+            //INSTANCIA O PLAYER
+            var player = new Player();
+            player.draw(); 
+
+            //DESENHA O PRIMEIRO SQM
+            ctx.fillStyle = "#F3FF00"; 
+            ctx.fillRect( player.x, player.y, player.w, player.h);
+
+
+
+
+
+        }
+    </script>
+</head>
+<body>
+    <canvas id="main" width="800px" height="500px">There is no Canvas support in your browser.</canvas>
+</body>
+</html>
