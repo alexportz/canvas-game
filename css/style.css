@@ -1,0 +1,10 @@
+body {
+    background:rgb(36, 35, 35);
+    margin:0px;
+    border:0px;
+    padding:0px;
+} 
+#mapa {
+    background:rgb(145, 145, 145); 
+    margin:0 auto;
+}
