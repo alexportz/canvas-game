@@ -1,11 +1,17 @@
 //Load code after all page Loaded.
 window.onload = function(){
     //Controls
-    var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
+    var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40; //Controle nas setas
+    //var LEFT = 65, UP=87, RIGHT=68, DOWN=2; //Controle ASDW
     var cnv = document.querySelector("canvas");
+        cnv.width = 800;
+        cnv.height = 500;
     var ctx = cnv.getContext('2d');
     var spriteSheet = new Image();
     spriteSheet.src = "img/players.png";
+
+    var spriteScene = new Image();
+    spriteScene.src = "img/scene.png";
 
 
     //FIRST PLAYER
@@ -19,6 +25,8 @@ window.onload = function(){
     //FUNCTIONS BY GAME
     //Make the first call
     function start(){
+        playerOne.posX = cnv.width/2 - playerOne.posX;
+        playerOne.posY = cnv.height/2 - playerOne.posY;
         update();
     }
 
@@ -31,6 +39,7 @@ window.onload = function(){
     //Draw all on screen
     function render(){
         ctx.clearRect(0,0,cnv.width,cnv.height);
+        ctx.drawImage(spriteScene, 0,0,spriteScene.width, spriteScene.height,0,0,spriteScene.width, spriteScene.height);
         playerOne.draw(ctx);
         playerOne.motion(); 
     }
@@ -41,7 +50,7 @@ window.onload = function(){
     window.addEventListener("keydown", keydownHandler, false);
     window.addEventListener("keyup", keyupHandler, false);
     //On keyDown any key
-    function keydownHandler(e){
+    function keydownHandler(e){ console.log(e.keyCode);
         switch(e.keyCode){
             case UP:
                 playerOne.moveU = true;

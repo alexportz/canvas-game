@@ -1,10 +1,13 @@
 body {
-    background:rgb(36, 35, 35);
+    background:rgb(36, 35, 35); 
     margin:0px;
     border:0px;
     padding:0px;
 } 
 #mapa {
     background:rgb(145, 145, 145); 
-    margin:0 auto;
+    border:solid 2px #333; 
+    top:50%; left:50%;
+    margin:-250px 0 0 -400px;
+    position: absolute;
 }
