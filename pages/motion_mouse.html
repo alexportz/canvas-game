@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Motion by Mouse</title>
+    <style type="text/css">
+        body { 
+            background: #333;
+            margin:0;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            //CANVAS
+            var cnv = document.getElementById('mapa');
+            var ctx = cnv.getContext('2d');
+                cnv.width = window.innerWidth;
+                cnv.height = window.innerHeight;
+            var sprite = new Image();
+            sprite.src = "../img/players.png";
+
+            //DETAIL FROM PLAYER 
+            var actualPlayerX = 432;//Player 1:0 Player2:144 Player3:288 Player4:432
+            var actualPlayerY = 0;
+            var playerPosX = 24;
+            var playerPosY = 24;
+            var playerWidth = 48;
+            var playerHeight = 48;
+            var playerCenterX = playerPosX + playerWidth / 2;
+            var playerCenterY = playerPosY + playerHeight / 2;
+            var playerSpeed = 1;
+            var playerColor = "#00FF00";
+            var mousePosX = playerCenterX;
+            var mousePosY = playerCenterY;
+            var spriteX = actualPlayerX; 
+            var spriteY = actualPlayerY;
+            var spriteTotalImagesX = 3;
+            var spriteTotalImagesY = 4;
+            var countAnimation = 0;
+            var speedAnimation = 8;
+
+
+            function drawSquare(posX,posY,sizeX,sizeY){
+                ctx.fillStyle = playerColor;
+                ctx.clearRect( 0, 0, cnv.width, cnv.height);
+                ctx.drawImage(sprite,spriteX, spriteY, playerWidth, playerHeight, playerPosX, playerPosY, playerWidth, playerHeight);
+            }
+
+            function movePlayer(){
+                movimentos();
+                if(playerPosX !== mousePosX - playerWidth / 2) {
+                    if(playerPosX > mousePosX - playerWidth/2){
+                        playerPosX -= playerSpeed;
+                        spriteY = playerHeight * 1;
+                    }
+                    if(playerPosX < mousePosX - playerWidth/2){
+                        playerPosX += playerSpeed;
+                        spriteY = playerHeight * 2;
+                    } 
+                } else {
+                    if(playerPosY > mousePosY - playerHeight/2){
+                        playerPosY -= playerSpeed;
+                        spriteY = playerHeight * 3;
+                    } 
+                    if(playerPosY < mousePosY - playerHeight/2){
+                        playerPosY += playerSpeed;
+                        spriteY = playerHeight * 0;
+                    } 
+                }
+            }
+
+            function movimentos(){ 
+                if(playerPosX == mousePosX - playerWidth/2 && playerPosY == mousePosY - playerHeight/2){
+                    //Stoped
+                } else {
+                    //Moving 
+                    countAnimation++;
+                    if ( countAnimation >= speedAnimation * spriteTotalImagesX) {
+                        countAnimation = 0;
+                    }
+                    spriteX = Math.floor(countAnimation / speedAnimation) * playerWidth + actualPlayerX;
+                }
+            }
+
+            function update(){
+                movePlayer();  
+                drawSquare(playerPosX,playerPosY,playerWidth,playerHeight); 
+                window.requestAnimationFrame(update);
+            }
+
+            //Change Mouse Position
+            window.addEventListener('click', changeMousePos, false);
+            function changeMousePos(e){ 
+                mousePosX = e.x;
+                mousePosY = e.y;
+            }
+            
+            //FIRST CALL
+            sprite.onload = function(){
+            update();
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <canvas id="mapa">
+        Sorry, canvas not supported.
+    </canvas>
+</body>
+</html>

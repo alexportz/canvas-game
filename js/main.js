@@ -8,10 +8,10 @@ window.onload = function(){
         cnv.height = 500;
     var ctx = cnv.getContext('2d');
     var spriteSheet = new Image();
-    spriteSheet.src = "img/players.png";
+    spriteSheet.src = "../img/players.png";
 
     var spriteScene = new Image();
-    spriteScene.src = "img/scene.png";
+    spriteScene.src = "../img/scene.png";
 
 
     //FIRST PLAYER
