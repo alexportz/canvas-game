@@ -17,10 +17,13 @@
             //CANVAS
             var cnv = document.getElementById('mapa');
             var ctx = cnv.getContext('2d');
-                cnv.width = window.innerWidth;
-                cnv.height = window.innerHeight;
+            var mapX = cnv.width = window.innerWidth;
+            var mapY = cnv.height = window.innerHeight;
             var sprite = new Image();
             sprite.src = "../img/players.png";
+            var piso = new Image();
+            piso.src = "../img/grass.jpg";
+
 
             //DETAIL FROM PLAYER 
             var actualPlayerX = 432;//Player 1:0 Player2:144 Player3:288 Player4:432
@@ -46,7 +49,13 @@
             function drawSquare(posX,posY,sizeX,sizeY){
                 ctx.fillStyle = playerColor;
                 ctx.clearRect( 0, 0, cnv.width, cnv.height);
+                drawMap();
                 ctx.drawImage(sprite,spriteX, spriteY, playerWidth, playerHeight, playerPosX, playerPosY, playerWidth, playerHeight);
+            }
+
+            function drawMap(){
+                console.log('piso');
+                ctx.drawImage(piso,0,0,piso.width,piso.height,0,0,piso.width, piso.height);
             }
 
             function movePlayer(){
@@ -86,7 +95,7 @@
             }
 
             function update(){
-                movePlayer();  
+                movePlayer(); 
                 drawSquare(playerPosX,playerPosY,playerWidth,playerHeight); 
                 window.requestAnimationFrame(update);
             }
@@ -101,7 +110,7 @@
             //FIRST CALL
             sprite.onload = function(){
             update();
-            }
+            } 
 
         }
     </script>
