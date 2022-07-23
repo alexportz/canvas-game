@@ -16,17 +16,17 @@
             ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
             ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
             ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','c1','D','D','c2','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','A','D','D','G','A','D','G','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','A','D','G','*','B','C','C','E','B','C','E','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','B','C','E','*','B','C','C','L','R','C','L','D','G','*','*','*','*','*','*','*','*','*'],
+            ['*','B','C','E','*','B','C','C','C','C','C','C','C','E','*','*','*','*','*','*','*','*','*'],
+            ['*','K','F','I','*','B','C','C','J','F','F','F','F','I','*','*','*','*','*','*','*','*','*'],
             ['*','*','*','*','*','B','C','C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','B','C','C','C','C','C','C','C','C','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','B','C','C','C','C','*','*','C','C','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','B','C','C','C','C','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','B','C','C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','c4','F','F','c3','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','K','F','F','I','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
             ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','H','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','A','D','G','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','B','C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','K','F','I','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
             ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*']
         ];
 
@@ -66,11 +66,19 @@
             var c2 = new Image();
             var c3 = new Image();
             var c4 = new Image();
+            var l1 = new Image();
+            var l2 = new Image();
+            var l3 = new Image();
+            var l4 = new Image();
             var hh = new Image();
             c1.src = "../img/tiles/c1.png";
             c2.src = "../img/tiles/c2.png";
             c3.src = "../img/tiles/c3.png";
             c4.src = "../img/tiles/c4.png";
+            l1.src = "../img/tiles/l1.png";
+            l2.src = "../img/tiles/l2.png";
+            l3.src = "../img/tiles/l3.png";
+            l4.src = "../img/tiles/l4.png";
             hh.src = "../img/tiles/hh.png";
             sqm.src = "../img/tiles/sqm1.png";
             sqm1.src = "../img/tiles/sqm1.png";
@@ -79,6 +87,7 @@
             sqm4.src = "../img/tiles/sqm4.png";
             sqm5.src = "../img/tiles/sqm5.png";
             sqm6.src = "../img/tiles/sqm6.png";
+
 
 
             var totalImages = [sqm,sqm1,sqm2,sqm3,sqm4,sqm5,sqm6];
@@ -103,16 +112,24 @@
                     ctxMap.drawImage( sqm4, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
                 } else if (mySqm == 'F') {
                     ctxMap.drawImage( sqm2, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
-                } else if (mySqm == 'c1') {
+                } else if (mySqm == 'A') {
                     ctxMap.drawImage( c1, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
-                } else if (mySqm == 'c2') {
+                } else if (mySqm == 'G') {
                     ctxMap.drawImage( c2, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
-                } else if (mySqm == 'c3') {
+                } else if (mySqm == 'I') {
                     ctxMap.drawImage( c3, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
-                } else if (mySqm == 'c4') {
+                } else if (mySqm == 'K') {
                     ctxMap.drawImage( c4, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
                 } else if (mySqm == 'H') {
                     ctxMap.drawImage( hh, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
+                }  else if (mySqm == 'L') {
+                    ctxMap.drawImage( l1, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
+                }  else if (mySqm == 'R') {
+                    ctxMap.drawImage( l2, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
+                }  else if (mySqm == 'S') {
+                    ctxMap.drawImage( l3, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
+                }  else if (mySqm == 'J') {
+                    ctxMap.drawImage( l4, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
                 } 
                 sqmx += sizeSqm;
             }
@@ -122,7 +139,6 @@
                 linhaSqm.forEach(desenhaSqm);
                 sqmx = 0; //Reset X position
                 sqmy += sizeSqm; //Add separador pro Y
-                console.log(sqmy);
             };
             //END_OF_FUNCTIONS
         }
