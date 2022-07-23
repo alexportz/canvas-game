@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Motion Map and Player Fixed</title>
+    <style type="text/css"> 
+        * { margin:0; }
+        #map { overflow: hidden; position:absolute;}
+        #view { overflow: hidden; position: absolute;}
+    </style>
+    <script> 
+        var mapaVectorial = [ 
+            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','c1','D','D','c2','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','B','C','C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','B','C','C','C','C','C','C','C','C','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','B','C','C','C','C','*','*','C','C','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','B','C','C','C','C','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','B','C','C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','c4','F','F','c3','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*']
+        ];
+
+        //Check if is a valid array
+        // console.log( typeof(mapaVectorial) );
+        // console.log( Array.isArray(mapaVectorial) );
+        // console.table(mapaVectorial);
+        //console.log(mapaVectorial.length);
+
+        
+        window.onload = function() {
+            //Create Canvas and Context
+            var cnvMap = document.getElementById('map');
+            var cnvView = document.getElementById('view');
+            var ctxMap = cnvMap.getContext('2d');
+            var ctxView = cnvView.getContext('2d');
+            //Define size of usable screen
+            var screenX = cnvMap.width = cnvView.width = window.innerWidth;
+            var screenY = cnvMap.height = cnvView.height = window.innerHeight;
+            //Define Size of tileMap
+            var sqmx = 0; //startPositionX
+            var sqmy = 0; //startPositionY
+            var sizeSqm = 42;
+            //ArrayMap
+            var totalSqm = mapaVectorial.length;
+
+
+            //load Images Sprites
+            var sqm = new Image();
+            var sqm1 = new Image();
+            var sqm2 = new Image();
+            var sqm3 = new Image();
+            var sqm4 = new Image();
+            var sqm5 = new Image();
+            var sqm6 = new Image();
+            var c1 = new Image();
+            var c2 = new Image();
+            var c3 = new Image();
+            var c4 = new Image();
+            c1.src = "../img/tiles/c1.png";
+            c2.src = "../img/tiles/c2.png";
+            c3.src = "../img/tiles/c3.png";
+            c4.src = "../img/tiles/c4.png";
+            sqm.src = "../img/tiles/sqm1.png";
+            sqm1.src = "../img/tiles/sqm1.png";
+            sqm2.src = "../img/tiles/sqm2.png";
+            sqm3.src = "../img/tiles/sqm3.png";
+            sqm4.src = "../img/tiles/sqm4.png";
+            sqm5.src = "../img/tiles/sqm5.png";
+            sqm6.src = "../img/tiles/sqm6.png";
+
+
+            var totalImages = [sqm,sqm1,sqm2,sqm3,sqm4,sqm5,sqm6];
+
+            sqm6.onload = function () { 
+                mapaVectorial.forEach(verificaAllSqm);
+                //ctxMap.drawImage(sqm,0,0,sqm.width, sqm.height,0,0,sqm.width, sqm.height); 
+            }
+
+            //START FUNCTIONS
+            var desenhaSqm = (mySqm, index) => {
+                //console.log(index,mySqm);
+                if(mySqm == '*') {
+                    ctxMap.drawImage( sqm, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
+                } else if (mySqm == 'B') {
+                    ctxMap.drawImage( sqm3, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
+                } else if (mySqm == 'C') {
+                    ctxMap.drawImage( sqm6, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
+                } else if (mySqm == 'D') {
+                    ctxMap.drawImage( sqm5, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
+                } else if (mySqm == 'E') {
+                    ctxMap.drawImage( sqm4, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
+                } else if (mySqm == 'F') {
+                    ctxMap.drawImage( sqm2, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
+                } else if (mySqm == 'c1') {
+                    ctxMap.drawImage( c1, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
+                } else if (mySqm == 'c2') {
+                    ctxMap.drawImage( c2, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
+                } else if (mySqm == 'c3') {
+                    ctxMap.drawImage( c3, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
+                } else if (mySqm == 'c4') {
+                    ctxMap.drawImage( c4, 0, 0, sqm.width, sqm.height, sqmx, sqmy,sqm.width, sqm.height);
+                } 
+                sqmx += sizeSqm;
+            }
+
+            var verificaAllSqm = (linhaSqm, index) => {
+                //console.log(index,linhaSqm);
+                linhaSqm.forEach(desenhaSqm);
+                sqmx = 0; //Reset X position
+                sqmy += sizeSqm; //Add separador pro Y
+                console.log(sqmy);
+            };
+            //END_OF_FUNCTIONS
+        }
+    </script>
+</head>
+<body> 
+    <canvas id="map"></canvas>
+    <canvas id="view"></canvas>
+</body>
+</html>

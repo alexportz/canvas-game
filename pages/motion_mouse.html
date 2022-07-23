@@ -7,23 +7,30 @@
     <title>Test Motion by Mouse</title>
     <style type="text/css">
         body { 
-            background: #333;
-            margin:0;
-            overflow: hidden;
+            background: #333; margin:0; overflow: hidden;
+        }
+        #view {
+            position:absolute; margin:0; overflow:hidden; z-index:2;
+        }
+        #mapa {
+            position:absolute; margin:0; overflow:hidden; z-index:1;
         }
     </style>
     <script>
         window.onload = function(){
             //CANVAS
-            var cnv = document.getElementById('mapa');
+            var cnv = document.getElementById('view');
+            var mapa = document.getElementById('mapa');
             var ctx = cnv.getContext('2d');
-            var mapX = cnv.width = window.innerWidth;
-            var mapY = cnv.height = window.innerHeight;
+            var ctxMap = mapa.getContext('2d');
+            var mapX = cnv.width = mapa.width = window.innerWidth;
+            var mapY = cnv.height = mapa.height = window.innerHeight;
             var sprite = new Image();
             sprite.src = "../img/players.png";
+            
             var piso = new Image();
-            piso.src = "../img/grass.jpg";
-
+            piso.src = "../img/tiles/sqm1.png";
+            var sqmSize = 42;
 
             //DETAIL FROM PLAYER 
             var actualPlayerX = 432;//Player 1:0 Player2:144 Player3:288 Player4:432
@@ -49,13 +56,23 @@
             function drawSquare(posX,posY,sizeX,sizeY){
                 ctx.fillStyle = playerColor;
                 ctx.clearRect( 0, 0, cnv.width, cnv.height);
-                drawMap();
                 ctx.drawImage(sprite,spriteX, spriteY, playerWidth, playerHeight, playerPosX, playerPosY, playerWidth, playerHeight);
             }
 
-            function drawMap(){
-                console.log('piso');
-                ctx.drawImage(piso,0,0,piso.width,piso.height,0,0,piso.width, piso.height);
+            function drawMap(){ 
+                var totalSqmX = Math.ceil(mapX / sqmSize);
+                var totalSqmY = Math.ceil(mapY / sqmSize);
+                var sqmAll = totalSqmX * totalSqmY;
+                var sqmXmap = 0;
+                var sqmMapy = 0;  
+                for ( var i=0; i < sqmAll; i++ ) { 
+                    ctxMap.drawImage(piso,0,0,piso.width,piso.height,sqmXmap,sqmMapy,piso.width, piso.height);
+                    sqmXmap += sqmSize; 
+                    if(sqmXmap >= mapX){
+                        sqmXmap = 0;
+                        sqmMapy += sqmSize;
+                    }
+                }
             }
 
             function movePlayer(){
@@ -109,15 +126,16 @@
             
             //FIRST CALL
             sprite.onload = function(){
-            update();
-            } 
-
+                update();
+            }  
+            piso.onload = function(){
+                drawMap();
+            }  
         }
     </script>
 </head>
 <body>
-    <canvas id="mapa">
-        Sorry, canvas not supported.
-    </canvas>
+    <canvas id="mapa"> Sorry, canvas not supported. </canvas>
+    <canvas id="view"></canvas>
 </body>
 </html>
