@@ -12,22 +12,22 @@
     </style>
     <script> 
         var mapaVectorial = [ 
-            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','A','D','D','G','A','D','G','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','A','D','G','*','B','C','C','E','B','C','E','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','B','C','E','*','B','C','C','L','R','C','L','D','G','*','*','*','*','*','*','*','*','*'],
-            ['*','B','C','E','*','B','C','C','C','C','C','C','C','E','*','*','*','*','*','*','*','*','*'],
-            ['*','K','F','I','*','B','C','C','J','F','F','F','F','I','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','B','C','C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','K','F','F','I','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','H','*','*','*','*','*','*','*','*'],
-            ['*','A','D','G','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','B','C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','K','F','I','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
-            ['*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*']
+            ['C','C','C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','C','C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','C','C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','C','J','I','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','C','E','*','*','A','D','D','G','A','D','G','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','C','L','G','*','B','C','C','E','B','C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','C','C','E','*','B','C','C','L','R','C','L','D','G','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','C','C','E','*','B','C','C','C','C','C','C','C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','J','F','I','*','B','C','C','J','F','F','F','F','I','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','E','*','*','*','B','C','C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','E','*','*','*','K','F','F','I','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','L','G','*','*','*','*','*','*','*','*','*','*','*','H','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','C','L','G','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','C','C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','J','F','I','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'],
+            ['C','E','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*']
         ];
 
         //Check if is a valid array
@@ -52,6 +52,9 @@
             var sizeSqm = 42;
             //ArrayMap
             var totalSqm = mapaVectorial.length;
+
+            //List WayPoints
+            var caminhos = [];
 
 
             //load Images Sprites
@@ -94,6 +97,7 @@
 
             sqm6.onload = function () { 
                 mapaVectorial.forEach(verificaAllSqm);
+                updatePlayer(); //First player draw
                 //ctxMap.drawImage(sqm,0,0,sqm.width, sqm.height,0,0,sqm.width, sqm.height); 
             }
 
@@ -141,6 +145,105 @@
                 sqmy += sizeSqm; //Add separador pro Y
             };
             //END_OF_FUNCTIONS
+
+
+            //PLAYER
+                function Player(img) {
+                    this.x = 8 * sizeSqm;
+                    this.y = 3 * sizeSqm;
+                    this.w = 64; //84 old
+                    this.h = 64;
+                    this.spriteX = 0;
+                    this.spriteY = 0;
+                    this.speed = 2;
+                    this.countAnimation = 0;
+                    this.totalFramesX = 6;
+                    this.totalFramesY = 6;
+                    this.speedAnimation = 5;
+                    this.maxAnimaFrames = this.speedAnimation * this.totalFramesX;
+                    this.sprite = img;
+                }
+
+                function getPosClick(e){
+                    var mousex = e.clientX;
+                    var mousey = e.clientY;
+
+                    //Get SQM Click
+                    // console.log( Math.floor(mousex / sizeSqm) );
+                    // console.log( Math.floor(mousey / sizeSqm) );
+                    var sqmClickX = Math.floor(mousex/sizeSqm) * sizeSqm;
+                    var sqmClickY = Math.floor(mousey/sizeSqm) * sizeSqm;
+                    caminhos = [sqmClickX, sqmClickY];
+                }
+ 
+                function animaPlayer() {
+                    jogador.countAnimation++;
+                    if ( jogador.countAnimation >= jogador.speedAnimation * jogador.totalFramesX) {
+                        jogador.countAnimation = 0;
+                    }
+                    jogador.spriteX = Math.floor(jogador.countAnimation / jogador.speedAnimation) * jogador.w ;
+                }
+
+                function movePlayer(){
+                    //Check if have waypoint to Move on list.
+                    if(caminhos.length > 0){ 
+                            if( jogador.x < caminhos[0]) {
+                                jogador.x += jogador.speed;
+                                jogador.spriteY = 2 * jogador.w;
+                                jogador.spriteX = 0;
+                                animaPlayer();
+                            } else
+                            if (jogador.x > caminhos[0]) {
+                                jogador.x -= jogador.speed;
+                                jogador.spriteY = 3 * jogador.w;
+                                jogador.spriteX = 0;
+                                animaPlayer();
+                            } else 
+                            if( jogador.y < caminhos[1] ) {
+                                jogador.y += jogador.speed;
+                                jogador.spriteY = 1 * jogador.w;
+                                jogador.spriteX = 0;
+                                animaPlayer();
+                            } else
+                            if (jogador.y > caminhos[1]) {
+                                jogador.y -= jogador.speed;
+                                jogador.spriteY = 0 * jogador.w;
+                                jogador.spriteX = 0;
+                                animaPlayer();
+                            } else {
+                                removeWay();
+                            }
+                        //VerificaColisoes
+                        checkColision()
+                    }
+                }
+                function removeWay(){
+                    //RemoveLastWay from Array
+                    caminhos.pop();
+                }
+
+                var spritePlayer = new Image();
+                spritePlayer.src = "../img/skins/sapo.png";
+
+                var jogador = new Player(spritePlayer);
+
+                function updatePlayer(){
+                    movePlayer();
+                    ctxView.clearRect( 0, 0, cnvMap.width, cnvMap.height);
+                    ctxView.drawImage( jogador.sprite, jogador.spriteX, jogador.spriteY, jogador.w, jogador.h, jogador.x - (jogador.w - sizeSqm), jogador.y - (jogador.h - sizeSqm), jogador.w, jogador.h);
+                    requestAnimationFrame(updatePlayer);
+                }
+
+                var verifyWall = (positions, index) => {
+                    console.log(positions);
+                }
+
+                function checkColision() {
+                    caminhos.forEach(verifyWall);
+                }
+
+                addEventListener('click', getPosClick);
+            //END OF PLAYER
         }
     </script>
 </head>
