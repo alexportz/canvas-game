@@ -20,47 +20,126 @@
             var cnvView = document.getElementById("view");
             var ctxMap = cnvMap.getContext("2d");
             var ctxView = cnvView.getContext("2d");
+            var mouseX = 0;
+            var mouseY = 0;
+            //Define Array Walls
+            var listOfWalls = [];
+            listOfWalls.push([50,50,50,100]); 
+            listOfWalls.push([450,50,50,50]); 
+            listOfWalls.push([50,250,50,50]); 
+            listOfWalls.push([450,350,50,50]);
             
             //Classes
             class Player {
-                x = 0;
-                y = 0;
-                w = 50;
-                h = 50;
+                constructor(){
+                    this.x = 0;
+                    this.y = 0;
+                    this.w = 50;
+                    this.h = 50;
+                    this.color = "#FF0000";
+                    this.speed = 1;
+                }
+                getLeftUp(){
+                    return [this.x, this.y];
+                }
+                getLeftDown(){
+                    return [this.x, this.y + this.h];
+                }
+                getRightUp(){
+                    return [this.x + this.w, this.y];
+                }
+                getRightDown(){
+                    return [this.x + this.w, this.y + this.h];
+                }
+
                 //DrawPlayer
                 draw() {
-                    ctxView.fillStyle = "#FF0000";
+                    ctxView.fillStyle = this.color;
                     ctxView.fillRect(this.x, this.y, this.w, this.h);
                 }
-            }
+                move() { 
+                    if(this.x !== mouseX || this.y !== mouseY) {
+                        if(this.x < mouseX){
+                            this.x += this.speed;
+                        } else 
+                        if(this.x > mouseX){
+                            this.x -= this.speed;
+                        } else
+                        if (this.y < mouseY) {
+                            this.y += this.speed;
+                        } else
+                        if (this.y > mouseY) {
+                            this.y -= this.speed;
+                        } 
+                    }
+                    
+                }
+            } 
 
             class Wall {
-                x=0;
-                y=0;
-                w=0;
-                h=0; 
+                constructor(x,y,w,h){ 
+                    this.x = x;
+                    this.y = y;
+                    this.w = w;
+                    this.h = h;
+                    //console.log('Constructed a Wall'); console.log(x,y,w,h);
+                    this.draw();
+                }
                 //DrawWall
-                draw(x,y,w,h) {
+                draw() {
                     ctxMap.fillStyle = "#00FF00";
-                    ctxMap.fillRect(x, y, w, h); 
+                    ctxMap.fillRect(this.x, this.y, this.w, this.h); 
                 } 
+            }
+            /////////FUNCTIONS
+            function update(){
+                clearMap();
+                clearView();
+                checkColision();
+                //console.log(listOfWalls); see all list of ways
+                listOfWalls.forEach(drawWall);
+                //Player
+                player1.move();
+                player1.draw();
+                requestAnimationFrame(update);
+            }
+            function clearMap(){
+                ctxMap.clearRect(0, 0, cnvMap.width, cnvMap.height);
+            }
+            function clearView(){
+                ctxView.clearRect(0, 0, cnvView.width, cnvView.height);
+            }
+            function drawWall(positions, index){ 
+                //ctxMap.fillRect(positions[0], positions[1], positions[2], positions[3]); 
+                var myWall = new Wall(positions[0],positions[1],positions[2],positions[3]); 
+            }
+            function checkColision(){
+                //Pega posicoes do Player
+                var leftup = player1.getLeftUp(); 
+                var leftdown = player1.getLeftDown(); 
+                var rightup = player1.getRightUp(); 
+                var rightdown = player1.getRightDown(); 
+
+                listOfWalls.forEach( (way, index)=> {
+                    //console.log(leftup);
+                    //console.log(way);
+                    if(rightdown[0] > way[0] && rightdown[1] > way[1] ){
+                        player1.color = "#FFFF00";
+                        console.log('Colidiu');
+                    }
+                });
             }
 
             var player1 = new Player();
-            player1.draw();
-
-            var wall1 = new Wall(); 
-            var wall2 = new Wall(); 
-            var wall3 = new Wall(); 
-            var wall4 = new Wall(); 
-
-
-            wall1.draw(50,50,50,50);
-            wall2.draw(250,50,50,50);
-            wall3.draw(250,250,50,50);
-            wall4.draw(350,200,50,50);
-             
-
+            update();
+            
+   
+            addEventListener('click', function(e){
+                mouseX = e.clientX - cnvMap.offsetLeft;
+                mouseY = e.clientY - cnvMap.offsetTop;
+                //console.log(mouseX,mouseY);
+            })
+            
         }
     </script>
 </head>
