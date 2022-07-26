@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colision - Forbiden motion</title>
+    <style type="text/css">
+        body { background:#333; margin:0; padding:0; border:none; overflow:hidden; }
+    </style>
+    <script>
+        window.onload = function (){
+        var cnv = document.getElementById('mapa');
+        var ctx = cnv.getContext('2d');
+        var totalScreenX = cnv.width = innerWidth;
+        var totalScreenY = cnv.height = innerHeight;
+        var totalPixelsOnScreen = totalScreenX * totalScreenY; 
+        var defaultSizeX = 50;
+        var defaultSizeY = 50;
+        var defaultSpeed = 50;
+        var pixelOfObjects = [];
+        var canMoveLeft = true;
+        var canMoveRight = true;
+        var canMoveUp = true;
+        var canMoveDown = true;
+
+        /////////////////////-CLASS PLAYER
+        class Player {
+            constructor(){
+                this.x=0;
+                this.y=0;
+                this.w=defaultSizeX;
+                this.h=defaultSizeY;
+                this.color = '#FFCCF3';
+            }
+            //DEFAULT CODE TO GET PIXEL FROM SIDES
+            getPointLeftUp(){
+                var pointX = totalScreenX * (this.y) + this.x; //console.log( pointX );
+                return pointX;
+            }
+            getPointRightUp(){
+                var pointX = totalScreenX * (this.y) + this.x + this.w; //console.log( pointX );
+                return pointX;
+            }
+            getPointLeftDown(){
+                var pointX = totalScreenX * (this.y + this.h) + this.x; //console.log( pointX );
+                return pointX;
+            }
+            getPointRightDown(){
+                var pointX = totalScreenX * (this.y + this.h) + this.x + this.w; //console.log( pointX );
+                return pointX;
+            }
+        }
+        /////////////////////-CLASS OBSTACULO
+        class Obstaculo {
+            constructor(x,y){
+                this.x = x;
+                this.y = y;
+                this.w = defaultSizeX;
+                this.h = defaultSizeY;
+                this.color = '#00CCF3';
+                this.addPixelsOnList();
+            }
+            //DEFAULT CODE TO GET PIXEL FROM SIDES
+            getPointLeftUp(){
+                var pointX = totalScreenX * (this.y) + this.x; //console.log( pointX );
+                return pointX;
+            }
+            getPointRightUp(){
+                var pointX = totalScreenX * (this.y) + this.x + this.w; //console.log( pointX );
+                return pointX;
+            }
+            getPointLeftDown(){
+                var pointX = totalScreenX * (this.y + this.h) + this.x; //console.log( pointX );
+                return pointX;
+            }
+            getPointRightDown(){
+                var pointX = totalScreenX * (this.y + this.h) + this.x + this.w; //console.log( pointX );
+                return pointX;
+            }
+
+            //Function to add Pixel on List
+            addPixelsOnList(){
+                pixelOfObjects.push(this.getPointLeftUp(), this.getPointRightUp(), this.getPointLeftDown(), this.getPointRightDown());
+                //console.log(pixelOfObjects);
+            }
+        }
+        ///////////////////// END OF CLASSES
+
+        var player = new Player();
+        var obj1 = new Obstaculo(200,200);
+        var obj2 = new Obstaculo(400,400);
+        var obj3 = new Obstaculo(450,400);
+        var obj4 = new Obstaculo(550,200);
+        var obj5 = new Obstaculo(500,250);
+        var obj6 = new Obstaculo(400,100);
+
+        function update() {
+            ctx.clearRect(0,0,cnv.width, cnv.height);
+
+            ctx.fillStyle = player.color;
+            ctx.fillRect( player.x, player.y, player.w, player.h);
+
+            ctx.fillStyle = obj1.color;
+            ctx.fillRect( obj1.x, obj1.y, obj1.w, obj1.h);
+            ctx.fillRect( obj2.x, obj2.y, obj2.w, obj2.h);
+            ctx.fillRect( obj3.x, obj3.y, obj3.w, obj3.h);
+            ctx.fillRect( obj4.x, obj4.y, obj4.w, obj4.h);
+            ctx.fillRect( obj5.x, obj5.y, obj5.w, obj5.h);
+            ctx.fillRect( obj6.x, obj6.y, obj6.w, obj6.h);
+        }
+        //First Exection
+        update();
+
+        function checkColision(pixelLU, pixelRU, pixelLD, pixelRD){
+            if(pixelOfObjects.indexOf(pixelRU) !== -1 && pixelOfObjects.indexOf(pixelLU) !== -1 ){
+                canMoveUp = false; //console.log('Colidiu topo');
+            } else { canMoveUp = true; }
+            if(pixelOfObjects.indexOf(pixelLD) !== -1 && pixelOfObjects.indexOf(pixelRD) !== -1 ){
+                canMoveDown = false; //console.log('Colidiu Baixo');
+            } else { canMoveDown = true; }
+            if(pixelOfObjects.indexOf(pixelLU) !== -1 && pixelOfObjects.indexOf(pixelLD) !== -1 ){
+                canMoveLeft = false; //console.log('Colidiu Esquerda');
+            } else { canMoveLeft = true; }
+            if(pixelOfObjects.indexOf(pixelRU) !== -1 && pixelOfObjects.indexOf(pixelRD) !== -1 ){
+                canMoveRight = false; //console.log('Colidiu Direita');
+            } else { canMoveRight = true; }
+        }
+        //SHOW ALL PIXELS FROM PLAYER
+        // console.log ( 
+        //     player.getPointLeftUp(),
+        //     player.getPointRightUp(),
+        //     player.getPointLeftDown(),
+        //     player.getPointRightDown()
+        // ); 
+
+        //SHOW ALL PIXELS FROM OBJ
+        // console.log ( 
+        //     obj1.getPointLeftUp(),
+        //     obj1.getPointRightUp(),
+        //     obj1.getPointLeftDown(),
+        //     obj1.getPointRightDown()
+        // ); 
+
+        //MOTION
+        addEventListener('keydown', function(e){
+            var tecla = e.keyCode;
+            if(tecla == 37 && canMoveLeft) { player.x -= defaultSpeed; }
+            if(tecla == 38 && canMoveUp) { player.y -= defaultSpeed; }
+            if(tecla == 39 && canMoveRight) { player.x += defaultSpeed; }
+            if(tecla == 40 && canMoveDown) { player.y += defaultSpeed; }
+            update();
+            //CheckColision from Pixels of Player Square
+            checkColision( player.getPointLeftUp(), player.getPointRightUp(), player.getPointLeftDown(), player.getPointRightDown() );
+        })
+
+    }
+    </script>
+</head>
+<body> 
+    <canvas id="mapa"> </canvas>
+</body>
+</html>
